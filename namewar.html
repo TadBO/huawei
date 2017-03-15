@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .ctl {
+            width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .ctl input {
+            font-size: 20px;
+        }
+        
+        .result {
+            width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ctl">
+        <input id='my' type="text" placeholder="输入你的姓名">
+        <input type="button" value='决战' id='start'>
+        <input id='you' type="text" placeholder="输入对手的姓名">
+    </div>
+    <!--<div class="result">
+        <ul>
+            <li>战场准备中</li>
+        </ul>
+    </div>-->
+    <script>
+        console.log('准备进入战场');
+        var zhaoshi = ['情意绵绵剑', '欲火焚身掌', '九阳神拳', '傲龙决', '葵花宝典', '辟邪剑法', '庐山升龙霸', '天马流星拳', '专打小聪掌'];
+        window.onload = function() {
+            document.getElementById('start').onclick = function() {
+
+                start();
+            }
+
+            function start() {
+                var my = {};
+                my.name = document.getElementById('my').value;
+                my.hp = parseInt(Math.random() * 300 + 100);
+                my.lucky = Math.random() * 10;
+
+                console.log(my.name + '进入了战场');
+                var you = {};
+                you.name = document.getElementById('you').value;
+                you.hp = parseInt(Math.random() * 300 + 100);
+                you.lucky = Math.random() * 10;
+                console.log(you.name + '进入了战场');
+
+                while (my.hp >= 0 && you.hp >= 0) {
+                    var gongji = parseInt(Math.random() * 30);
+                    var index = parseInt(Math.random() * zhaoshi.length);
+
+                    if (my.lucky > you.lucky) {
+                        you.hp = you.hp - gongji;
+                        console.log(you.name + '遭受' + zhaoshi[index] + '了,受' + gongji + "点伤害，剩余" + you.hp)
+                    } else {
+                        my.hp -= gongji;
+                        console.log(my.name + '遭受' + zhaoshi[index] + '了,受' + gongji + "点伤害，剩余" + my.hp)
+                    }
+
+                    my.lucky = Math.random() * 10;
+                    you.lucky = Math.random() * 10;
+                    if (you.name == "熊波") {
+                    	you.lucky += 1;
+                    }
+                    if (my.name == "熊波") {
+                    	my.lucky += 1;
+                    }
+                }
+                if (my.hp <= 0) {
+                    console.log(you.name + ' is winer')
+                } else {
+                    console.log(my.name + 'is winer')
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>
